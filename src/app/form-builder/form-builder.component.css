@@ -1,0 +1,30 @@
+.container {
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  top: 100px;
+}
+
+.button {
+  position: relative;
+  background-color: #002ead;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 24px;
+  font-size: 24px;
+}
+
+.button:hover {
+  background-color: #2259ef;
+}
+
+.button:focus {
+  outline-color: transparent;
+  outline-style: solid;
+}
+
+.button:active {
+  background-color: #002ead;
+}

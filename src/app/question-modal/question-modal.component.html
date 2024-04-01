@@ -1,0 +1,51 @@
+<h2 mat-dialog-title>Add a New Question</h2>
+<mat-dialog-content>
+  <form [formGroup]="questionForm">
+    <div>
+      <mat-form-field>
+        <mat-label>Type Answer</mat-label>
+        <mat-select formControlName="typeAnswer" name="typeAnswer" (selectionChange)="changeSelection($event)">
+          @for (type of types; track type) {
+          <mat-option [value]="type.value">{{type.label}}</mat-option>
+          }
+        </mat-select>
+          @if (questionForm.get('typeAnswer')?.invalid) {
+          <mat-error>{{'You must choose a type of answer'}}</mat-error>
+          }
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field class="example-full-width">
+        <mat-label>Question</mat-label>
+        <textarea matInput formControlName="question"></textarea>
+        @if (questionForm.get('question')?.invalid) {
+        <mat-error>{{'You must enter a question'}}</mat-error>
+        }
+      </mat-form-field>
+    </div>
+    <div>
+      @if (answers.length > 0) {
+      <ng-container formArrayName="answers">
+        <div *ngFor="let control of answers.controls; let i = index" [formGroupName]="i">
+          <mat-form-field class="example-answer">
+            <mat-label>Answer {{i + 1}}</mat-label>
+            <input matInput placeholder="Answer" formControlName="name" (blur)="changeAnswerValue(i)">
+          </mat-form-field>
+
+          <button mat-icon-button color="primary" aria-label="Example icon button with a delete icon" (click)="delete(i)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </ng-container>
+      }
+      <button mat-button color="primary" cdkFocusInitial (click)="addAnswer()"><mat-icon>add</mat-icon> Add another answer</button>
+    </div>
+    <div>
+      <div><mat-checkbox formControlName="specificAnswer">Allow user to specify their own answer</mat-checkbox></div>
+      <div><mat-checkbox formControlName="isRequired">This field is required</mat-checkbox></div>
+    </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button color="primary" mat-dialog-close cdkFocusInitial (click)="submit()">Submit</button>
+</mat-dialog-actions>

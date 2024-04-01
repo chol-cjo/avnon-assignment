@@ -1,0 +1,33 @@
+<h2 mat-dialog-title>Self introduction</h2>
+<mat-dialog-content>
+  <form [formGroup]="questionForm">
+    <h4>Please tell us about yourself *</h4>
+    <section>
+      <mat-form-field class="example-full-width">
+        <textarea matInput formControlName="question"></textarea>
+        @if (questionForm.get('question')?.invalid) {
+        <mat-error>{{'You must enter a question'}}</mat-error>
+        }
+      </mat-form-field>
+    </section>
+    <!-- Multiple choice -->
+    <section formArrayName="choices">
+      <h4>Please select the languages you know * @if (questionForm.get('choices')?.touched && hasErrorMessage) {
+      <span class="error-message">Please select an option</span>
+      }</h4>
+      <ng-container *ngFor="let language of languagesFormArray.controls ; let i = index" [formGroupName]="i">
+        <div><mat-checkbox formControlName="selected">{{language.get('name')?.value}}</mat-checkbox></div>
+      </ng-container>
+    </section>
+    <!-- Other -->
+    <section *ngIf="hasOther">
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Optional" formControlName="other">
+      </mat-form-field>
+    </section>
+    <button mat-button color="primary" (click)="addQuestion()">Add New Question</button>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button color="primary" cdkFocusInitial (click)="reviewAnswer()">{{'Review my answers >'}}</button>
+</mat-dialog-actions>
