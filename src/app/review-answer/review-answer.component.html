@@ -2,24 +2,32 @@
   <mat-card class="example-full-card">
     <section>
       <h4>Please tell us about yourself</h4>
-      <p>
-        {{data.question}}
+      <p class="text-indent">
+        {{ data.question }}
       </p>
     </section>
     <section>
       <h4>Please select the languages you know</h4>
       <ul>
-        <li *ngFor="let choice of data.choices" [class.hidden]="!choice.selected">
-          {{choice.name}} <span *ngIf="choice.name === 'Other'"> - {{data.other}}</span></li>
+        <li
+          *ngFor="let choice of data.choices"
+          [class.hidden]="!choice.selected"
+        >
+          {{ choice.name }}
+          <span *ngIf="choice.name === 'Other'"> - {{ data.other }}</span>
+        </li>
       </ul>
     </section>
-    <button mat-flat-button color="primary" (click)="goBack()">Back to FormBuilder</button>
+    <button mat-flat-button color="primary" (click)="goBack()">
+      Back to FormBuilder
+    </button>
   </mat-card>
-  
 </ng-container>
 <ng-template #empty>
   <mat-card class="example-card">
     <h4 class="text-center">No Result</h4>
-    <button mat-flat-button color="primary" (click)="goBack()">Back to FormBuilder</button>
+    <button mat-flat-button color="primary" (click)="goBack()">
+      Back to FormBuilder
+    </button>
   </mat-card>
 </ng-template>
